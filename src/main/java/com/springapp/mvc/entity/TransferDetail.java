@@ -8,6 +8,10 @@ import java.io.Serializable;
  */
 @Entity
 public class TransferDetail implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     private String reason;
     private String date;
 
@@ -39,7 +43,7 @@ public class TransferDetail implements Serializable {
     @Basic
     public String getReason() {
         return reason;
-    }
+    }//
 
     public void setReason(String reason) {
         this.reason = reason;
@@ -51,5 +55,13 @@ public class TransferDetail implements Serializable {
 
     public String getDate() {
         return date;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
