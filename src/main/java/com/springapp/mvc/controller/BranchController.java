@@ -43,8 +43,7 @@ public class BranchController {
     }
 
     @RequestMapping("/branch/remove/{id}")
-    public String removeBranch(@PathVariable("id") Long id){
-
+    public String removeBranch(@PathVariable("id") int id){
         this.branchRepository.delete(id);
         return "redirect:/branches";
     }

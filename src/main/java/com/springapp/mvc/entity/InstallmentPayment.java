@@ -1,9 +1,6 @@
 package com.springapp.mvc.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
@@ -12,7 +9,7 @@ import java.math.BigDecimal;
 @Entity
 public class InstallmentPayment {
     private int id;
-    private int loanId;
+    private Loan loan;
     private BigDecimal interest;
     private BigDecimal capital;
     private BigDecimal fee;
@@ -25,15 +22,6 @@ public class InstallmentPayment {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Basic
-    public int getLoanId() {
-        return loanId;
-    }
-
-    public void setLoanId(int loanId) {
-        this.loanId = loanId;
     }
 
     @Basic
@@ -80,7 +68,6 @@ public class InstallmentPayment {
         InstallmentPayment that = (InstallmentPayment) o;
 
         if (id != that.id) return false;
-        if (loanId != that.loanId) return false;
         if (interest != null ? !interest.equals(that.interest) : that.interest != null) return false;
         if (capital != null ? !capital.equals(that.capital) : that.capital != null) return false;
         if (fee != null ? !fee.equals(that.fee) : that.fee != null) return false;
@@ -92,11 +79,19 @@ public class InstallmentPayment {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + loanId;
         result = 31 * result + (interest != null ? interest.hashCode() : 0);
         result = 31 * result + (capital != null ? capital.hashCode() : 0);
         result = 31 * result + (fee != null ? fee.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    public Loan getLoan() {
+        return loan;
+    }
+
+    public void setLoan(Loan loan) {
+        this.loan = loan;
     }
 }

@@ -2,22 +2,26 @@ package com.springapp.mvc.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
- * Created by ssvh on 4/20/16.
+ * Created by ssvh on 7/24/16.
  */
+
+
 @Entity
 public class TransferDetail implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+
+    private int id;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(insertable = true)
+    private Date date = new Date();
 
     private String reason;
-    private String date;
 
     private FieldOfficer fieldOfficer;
 
-    @Id
     @ManyToOne
     public FieldOfficer getFieldOfficer() {
         return fieldOfficer;
@@ -29,8 +33,7 @@ public class TransferDetail implements Serializable {
 
     private Loan loan;
 
-    @Id
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.PERSIST)
     public Loan getLoan() {
         return loan;
     }
@@ -43,25 +46,27 @@ public class TransferDetail implements Serializable {
     @Basic
     public String getReason() {
         return reason;
-    }//
+    }
 
     public void setReason(String reason) {
         this.reason = reason;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public long getId() {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 }

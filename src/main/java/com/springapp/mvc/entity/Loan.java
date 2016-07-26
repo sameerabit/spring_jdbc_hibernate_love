@@ -2,12 +2,22 @@ package com.springapp.mvc.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by ssvh on 4/20/16.
  */
 @Entity
 public class Loan {
+
+    private List<TransferDetail> transferDetails;
+
+    public Loan(){
+        transferDetails = new ArrayList<TransferDetail>();
+    }
 
     private int id;
     private Integer number;
@@ -17,6 +27,7 @@ public class Loan {
     private BigDecimal total;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -24,9 +35,6 @@ public class Loan {
     public void setId(int id) {
         this.id = id;
     }
-
-
-//    private Collection transferDetails;
 
     private Customer customer;
 
@@ -109,12 +117,13 @@ public class Loan {
         this.date = date;
     }
 
-//    @OneToMany(mappedBy = "loan")
-//    public Collection getTransferDetails() {
-//        return transferDetails;
-//    }
-//
-//    public void setTransferDetails(Collection transferDetails) {
-//        this.transferDetails = transferDetails;
-//    }
+    @OneToMany(mappedBy = "loan",cascade = CascadeType.PERSIST)
+    public List<TransferDetail> getTransferDetails() {
+        return transferDetails;
+    }
+
+    public void setTransferDetails(List<TransferDetail>  transferDetails) {
+        this.transferDetails = transferDetails;
+    }
+
 }

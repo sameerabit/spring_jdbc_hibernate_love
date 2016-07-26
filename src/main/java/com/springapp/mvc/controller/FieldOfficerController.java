@@ -54,14 +54,14 @@ public class FieldOfficerController {
     }
 
     @RequestMapping("/fieldOfficer/remove/{id}")
-    public String removeFieldOfficer(@PathVariable("id") long id){
+    public String removeFieldOfficer(@PathVariable("id") int id){
 
         this.fieldOfficerRepository.delete(id);
         return "redirect:/fieldOfficers";
     }
 
     @RequestMapping("/fieldOfficer/edit/{id}")
-    public String editFieldOfficer(@PathVariable("id") long id, Model model){
+    public String editFieldOfficer(@PathVariable("id") int id, Model model){
         model.addAttribute("fieldOfficer", this.fieldOfficerRepository.getOne(id));
         model.addAttribute("listFieldOfficer", this.fieldOfficerRepository.findAll());
         model.addAttribute("listBranch",this.branchRepository.findAll());

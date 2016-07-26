@@ -30,21 +30,21 @@
 
 <form:form action="${addAction}" commandName="transferDetail">
     <table>
-        <c:if test="${!empty loan.id} && ${loan.id!=0}">
+        <c:if test="${!empty transferDetail.id} && ${transferDetail.id!=0}">
             <tr>
                 <td>
-                    <form:label path="id">
+                    <form:label path="loan.id">
                         <spring:message text="ID"/>
                     </form:label>
                 </td>
                 <td>
-                    <form:input path="id" readonly="true" size="8"  disabled="true" />
-                    <form:hidden path="id" />
+                    <form:input path="loan.id" readonly="true" size="8"  disabled="true" />
+                    <form:hidden path="loan.id" />
                 </td>
             </tr>
         </c:if>
         <tr>
-            <td> <form:label path="loan">
+            <td> <form:label path="loan.customer.id">
                 <spring:message text="Customer"/>
             </form:label></td>
             <td>
@@ -55,7 +55,7 @@
             </td>
         </tr>
         <tr>
-            <td> <form:label path="fieldOfficer">
+            <td> <form:label path="fieldOfficer.id">
                 <spring:message text="FieldOfficer"/>
             </form:label></td>
             <td>
@@ -117,24 +117,26 @@
         </tr>
         <tr>
             <td colspan="2">
-                <c:if test="${loan.id>0}">
+                <c:if test="${id>0}">
                     <input type="submit"
                            value="<spring:message text="Edit Loan"/>" />
                 </c:if>
-                <c:if test="${loan.id==0}">
+                <%--<c:if test="${id==0}">--%>
                     <input type="submit"
                            value="<spring:message text="Add Loan"/>" />
-                </c:if>
+                <%--</c:if>--%>
             </td>
         </tr>
     </table>
 </form:form>
 <br>
 <h3>Loan List</h3>
-<c:if test="${!empty listLoan}">
+<c:if test="${!empty listTransferDetail}">
     <table class="tg">
         <tr>
             <th width="80">ID</th>
+            <th width="80">Customer</th>
+            <th width="80">FieldOfficer</th>
             <th width="120">Number</th>
             <th width="120">Date</th>
             <th width="120">Capital</th>
@@ -143,16 +145,18 @@
             <th width="60">Edit</th>
             <th width="60">Delete</th>
         </tr>
-        <c:forEach items="${listLoan}" var="loan">
+        <c:forEach items="${listTransferDetail}" var="transferDetail">
             <tr>
-                <td>${loan.id}</td>
-                <td>${loan.number}</td>
-                <td>${loan.date}</td>
-                <td>${loan.capital}</td>
-                <td>${loan.interest}</td>
-                <td>${loan.total}</td>
-                <td><a href="<c:url value='/loan/edit/${loan.id}' />" >Edit</a></td>
-                <td><a href="<c:url value='/loan/remove/${loan.id}' />" >Delete</a></td>
+                <td>${transferDetail.loan.id}</td>
+                <td>${transferDetail.loan.customer.name}</td>
+                <td>${transferDetail.fieldOfficer.name}</td>
+                <td>${transferDetail.loan.number}</td>
+                <td>${transferDetail.loan.date}</td>
+                <td>${transferDetail.loan.capital}</td>
+                <td>${transferDetail.loan.interest}</td>
+                <td>${transferDetail.loan.total}</td>
+                <td><a href="<c:url value='/loan/edit/${transferDetail.loan.id}' />" >Edit</a></td>
+                <td><a href="<c:url value='/loan/remove/${transferDetail.loan.id}' />" >Delete</a></td>
             </tr>
         </c:forEach>
     </table>

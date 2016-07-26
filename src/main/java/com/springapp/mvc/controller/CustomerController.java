@@ -28,14 +28,14 @@ public class CustomerController {
     }
 
     @RequestMapping(value= "/customer/add", method = RequestMethod.POST)
-    public String addCustomer(@ModelAttribute("customer") Customer p){
+    public String addCustomer(@ModelAttribute("customer") Customer customer){
 
-        if(p.getId() == 0){
+        if(customer.getId() == 0){
             //new customer, add it
-            this.customerRepository.save(p);
+            this.customerRepository.save(customer);
         }else{
             //existing customer, call update
-            this.customerRepository.save(p);
+            this.customerRepository.save(customer);
         }
 
         return "redirect:/customers";

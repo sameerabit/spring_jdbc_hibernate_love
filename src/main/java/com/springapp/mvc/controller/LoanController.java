@@ -1,83 +1,55 @@
 package com.springapp.mvc.controller;
 
+import com.springapp.mvc.entity.FieldOfficer;
 import com.springapp.mvc.entity.Loan;
 import com.springapp.mvc.entity.TransferDetail;
 import com.springapp.mvc.repository.CustomerRepository;
 import com.springapp.mvc.repository.FieldOfficerRepository;
 import com.springapp.mvc.repository.LoanRepository;
 import com.springapp.mvc.repository.TransferDetailRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by ssvh on 3/4/16.
+ * Created by ssvh on 7/24/16.
  */
 
 @Controller
-public class LoanController {
+public class LoanController{
 
-    private LoanRepository loanService;
+    @Autowired
+    LoanRepository loanRepository;
 
-    private CustomerRepository customerService;
+    @Autowired
+    CustomerRepository customerRepository;
 
-    private FieldOfficerRepository fieldOfficerService;
+    @Autowired
+    FieldOfficerRepository fieldOfficerRepository;
 
-    private TransferDetailRepository transferDetailService;
+    @Autowired
+    TransferDetailRepository transferDetailRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
-
-
-    @RequestMapping(value = "/loans", method = RequestMethod.GET)
-    public String ListLoans(ModelMap model)
-    {
-        model.put("loan", new Loan());
-        model.put("transferDetail",new TransferDetail());
-        model.put("listTransferDetail", this.transferDetailService.findAll());
-        model.put("listLoan", this.loanService.findAll());
-        model.put("listCustomer",this.customerService.findAll());
-        model.put("listFieldOfficer",this.fieldOfficerService.findAll());
-        return "loan";
-    }
-
-    @RequestMapping(value= "/loan/add", method = RequestMethod.POST)
-    public String addLoan(
-            @ModelAttribute("transferDetail") TransferDetail transferDetail,
-            @RequestParam Map<String,String> allRequestParams){
-        transferDetail.setReason("ordinary method");
-       // transferDetail.getLoan().setTransferDetails(transferDetails);
-        //if(transferDetail.getLoan().getId() == 0){
-            //new transferDetail, add it
-          //  this.transferDetailService.addTransferDetail(transferDetail);
-        //}else{
-            //existing transferDetail, call update
-         //   this.transferDetailService.addTransferDetail(transferDetail);
-        //}
-
-        return "redirect:/loans";
-
-    }
-
-    @RequestMapping("/loan/remove/{id}")
-    public String removeLoan(@PathVariable("id") long id){
-
-        this.loanService.delete(id);
+    @RequestMapping(value = "loan/add",method= RequestMethod.POST)
+    public String addLoan(@ModelAttribute("transferDetail")TransferDetail transferDetail) {
+        transferDetail.setReason("new loan added.");
+        transferDetailRepository.save(transferDetail);
         return "redirect:/loans";
     }
 
-    @RequestMapping("/loan/edit/{id}")
-    public String editLoan(@PathVariable("id") long id, Model model){
-        model.addAttribute("loan", this.loanService.getOne(id));
-        model.addAttribute("listLoan", this.loanService.findAll());
-        model.addAttribute("listCustomer",this.customerService.findAll());
-        model.addAttribute("listFieldOfficer",this.fieldOfficerService.findAll());
+    @RequestMapping(value = "loans",method= RequestMethod.GET)
+    public String listLoans(ModelMap modelMap) {
+        modelMap.addAttribute("transferDetail",new TransferDetail());
+        modelMap.addAttribute("listCustomer",customerRepository.findAll());
+        modelMap.addAttribute("listTransferDetail",transferDetailRepository.findAll());
+        modelMap.addAttribute("listFieldOfficer",fieldOfficerRepository.findAll());
         return "loan";
     }
-
 
 }
