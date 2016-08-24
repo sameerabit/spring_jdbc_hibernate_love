@@ -13,6 +13,7 @@ public class InstallmentPayment {
     private BigDecimal interest;
     private BigDecimal capital;
     private BigDecimal fee;
+    private String date;
     private Byte status;
 
     @Id
@@ -93,5 +94,13 @@ public class InstallmentPayment {
 
     public void setLoan(Loan loan) {
         this.loan = loan;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

@@ -155,6 +155,7 @@
                 <td>${transferDetail.loan.capital}</td>
                 <td>${transferDetail.loan.interest}</td>
                 <td>${transferDetail.loan.total}</td>
+                <td><a href="<c:url value='/payment/${transferDetail.loan.id}' />" >Pay</a></td>
                 <td><a href="<c:url value='/loan/edit/${transferDetail.loan.id}' />" >Edit</a></td>
                 <td><a href="<c:url value='/loan/remove/${transferDetail.loan.id}' />" >Delete</a></td>
             </tr>

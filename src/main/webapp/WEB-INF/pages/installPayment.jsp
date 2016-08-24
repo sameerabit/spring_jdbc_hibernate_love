@@ -48,16 +48,13 @@
                 <spring:message text="Loan"/>
             </form:label></td>
             <td>
-                <form:select path="loan.id">
-                    <form:option value="0" label="-----Select------" />
-                    <form:options items="${listloans}" itemValue="id" itemLabel="name" />
-                </form:select>
+                <form:input path="loan.id" />
             </td>
         </tr>
         <tr>
             <td>
                 <form:label path="interest">
-                    <spring:message text="Number"/>
+                    <spring:message text="interest"/>
                 </form:label>
             </td>
             <td>
@@ -67,7 +64,7 @@
         <tr>
             <td>
                 <form:label path="capital">
-                    <spring:message text="Date"/>
+                    <spring:message text="capital"/>
                 </form:label>
             </td>
             <td>
@@ -77,7 +74,7 @@
         <tr>
             <td>
                 <form:label path="fee">
-                    <spring:message text="Capital"/>
+                    <spring:message text="fee"/>
                 </form:label>
             </td>
             <td>
@@ -87,7 +84,7 @@
         <tr>
             <td>
                 <form:label path="date">
-                    <spring:message text="Interest"/>
+                    <spring:message text="date"/>
                 </form:label>
             </td>
             <td>
@@ -107,6 +104,11 @@
             </td>
         </tr>
     </table>
+    <table>
+        
+    </table>
+
+
 </form:form>
 <br>
 <h3>Loan List</h3>
