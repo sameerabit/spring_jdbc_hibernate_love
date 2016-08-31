@@ -12,7 +12,9 @@ import java.math.BigDecimal;
 @Entity
 public class PaymentDetail {
     private String id;
+
     private int installmentPaymentId;
+
     private BigDecimal total;
 
     @Id
