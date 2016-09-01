@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 @Entity
 public class Cheque {
     private int id;
-    @ManyToOne
     private InstallmentPayment installmentPayment;
     private BigDecimal amount;
 
@@ -54,6 +53,7 @@ public class Cheque {
         return result;
     }
 
+    @ManyToOne
     public InstallmentPayment getInstallmentPayment() {
         return installmentPayment;
     }

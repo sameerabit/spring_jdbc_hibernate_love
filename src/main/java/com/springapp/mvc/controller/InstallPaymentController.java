@@ -28,7 +28,7 @@ public class InstallPaymentController {
 
     @RequestMapping("/listPayments")
     public String listPayments(ModelMap modelMap){
-        modelMap.addAttribute("installPayment",new InstallmentPayment());
+        modelMap.addAttribute("payment",new InstallmentPayment());
         modelMap.addAttribute("loan",loanRepository.findAll());
         return "installPayment";
     }

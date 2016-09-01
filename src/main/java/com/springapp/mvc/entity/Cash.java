@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class Cash {
     private int id;
 
-    @ManyToOne
+
     private InstallmentPayment installmentPayment;
 
     private BigDecimal amount;
@@ -55,6 +55,7 @@ public class Cash {
         return result;
     }
 
+    @ManyToOne
     public InstallmentPayment getInstallmentPayment() {
         return installmentPayment;
     }
