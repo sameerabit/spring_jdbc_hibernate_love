@@ -1,9 +1,6 @@
 package com.springapp.mvc.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
@@ -12,7 +9,8 @@ import java.math.BigDecimal;
 @Entity
 public class Credit {
     private int id;
-    private String paymentDetailId;
+    @ManyToOne
+    private InstallmentPayment installmentPayment;
     private BigDecimal amount;
 
     @Id
@@ -24,14 +22,6 @@ public class Credit {
         this.id = id;
     }
 
-    @Basic
-    public String getPaymentDetailId() {
-        return paymentDetailId;
-    }
-
-    public void setPaymentDetailId(String paymentDetailId) {
-        this.paymentDetailId = paymentDetailId;
-    }
 
     @Basic
     public BigDecimal getAmount() {
@@ -50,8 +40,7 @@ public class Credit {
         Credit credit = (Credit) o;
 
         if (id != credit.id) return false;
-        if (paymentDetailId != null ? !paymentDetailId.equals(credit.paymentDetailId) : credit.paymentDetailId != null)
-            return false;
+
         if (amount != null ? !amount.equals(credit.amount) : credit.amount != null) return false;
 
         return true;
@@ -60,8 +49,15 @@ public class Credit {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (paymentDetailId != null ? paymentDetailId.hashCode() : 0);
         result = 31 * result + (amount != null ? amount.hashCode() : 0);
         return result;
+    }
+
+    public InstallmentPayment getInstallmentPayment() {
+        return installmentPayment;
+    }
+
+    public void setInstallmentPayment(InstallmentPayment installmentPayment) {
+        this.installmentPayment = installmentPayment;
     }
 }
