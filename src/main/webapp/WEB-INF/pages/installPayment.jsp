@@ -46,32 +46,34 @@
                         return false;
                     });
 
+                    //cheque
+                    // Start indexing at the size of the current list
+                    var chIndex = ${fn:length(cheque)};
+
+                    // Add a new Employee
+                    $("#addCheque").off("click").on("click", function() {
+                        $(this).before(function() {
+                            var html = '<div id="cheque' + chIndex + '.wrapper" class="hidden">';
+                            html += '<input type="text" id="cheque' + chIndex + '.number" name="cheque[' + chIndex + '].number" />';
+                            html += '<input type="text" id="cheque' + chIndex + '.amount" name="cheque[' + chIndex + '].amount" />';
+                            html += '<input type="hidden" id="cheque' + chIndex + '.remove" name="cheque[' + chIndex + '].remove" value="0" />';
+                            html += '<a href="#" onclick="removeChequeRow('+chIndex+')" class="chequeremove" data-chIndex="' + chIndex + '">remove</a>';
+
+                            html += "</div>";
+                            return html;
+                        });
+                        $("#cheque" + chIndex + "\\.wrapper").show();
+                        chIndex++;
+                        return false;
+                    });
+
+
                 });
 
                 function removeRow(key){
                     $("#credit" + key + "\\.wrapper").remove();
                 }
 
-                //cheque
-                // Start indexing at the size of the current list
-                var chIndex = ${fn:length(cheque)};
-
-                // Add a new Employee
-                $("#addCheque").off("click").on("click", function() {
-                    $(this).before(function() {
-                        var html = '<div id="cheque' + chIndex + '.wrapper" class="hidden">';
-                        html += '<input type="text" id="cheque' + chIndex + '.number" name="cheque[' + chIndex + '].number" />';
-                        html += '<input type="text" id="cheque' + chIndex + '.amount" name="cheque[' + chIndex + '].amount" />';
-                        html += '<input type="hidden" id="cheque' + chIndex + '.remove" name="cheque[' + chIndex + '].remove" value="0" />';
-                        html += '<a href="#" onclick="removeChequeRow('+chIndex+')" class="chequeremove" data-chIndex="' + chIndex + '">remove</a>';
-
-                        html += "</div>";
-                        return html;
-                    });
-                    $("#cheque" + chIndex + "\\.wrapper").show();
-                    chIndex++;
-                    return false;
-                });
                 function removeChequeRow(key){
                     $("#cheque" + key + "\\.wrapper").remove();
                 }
@@ -147,16 +149,19 @@
                 <form:input path="date" />
             </td>
         </tr>
+
+    </table>
+
+    <table>
+        <tr colspan="2">Cash Payment</tr>
         <tr>
-            <td colspan="2">
-                <c:if test="${id>0}">
-                    <input type="submit"
-                           value="<spring:message text="Edit Loan"/>" />
-                </c:if>
-                    <%--<c:if test="${id==0}">--%>
-                <input type="submit"
-                       value="<spring:message text="Add Loan"/>" />
-                    <%--</c:if>--%>
+            <td>
+                <form:label path="cash">
+                    <spring:message text="cash"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="cash" />
             </td>
         </tr>
     </table>
@@ -232,7 +237,20 @@
             </td>
         </tr>
     </table>
-    
+    <table>
+        <tr>
+            <td colspan="2">
+                <c:if test="${id>0}">
+                    <input type="submit"
+                           value="<spring:message text="Edit Loan"/>" />
+                </c:if>
+                    <%--<c:if test="${id==0}">--%>
+                <input type="submit"
+                       value="<spring:message text="Add Loan"/>" />
+                    <%--</c:if>--%>
+            </td>
+        </tr>
+    </table>
 
 </form:form>
 <br>

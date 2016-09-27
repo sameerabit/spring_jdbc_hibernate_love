@@ -14,6 +14,8 @@ public class InstallmentPayment {
     private List<Credit> credit;
     private List<Cheque> cheque;
 
+    private Cash cash;
+
     public InstallmentPayment() {
         credit = new ArrayList<Credit>();
         cheque = new ArrayList<Cheque>();
@@ -132,5 +134,14 @@ public class InstallmentPayment {
 
     public void setCheque(List<Cheque> cheque) {
         this.cheque = cheque;
+    }
+
+    @OneToOne(cascade=CascadeType.PERSIST)
+    public Cash getCash() {
+        return cash;
+    }
+
+    public void setCash(Cash cash) {
+        this.cash = cash;
     }
 }

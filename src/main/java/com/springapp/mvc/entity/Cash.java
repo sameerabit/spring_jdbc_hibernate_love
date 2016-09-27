@@ -55,7 +55,7 @@ public class Cash {
         return result;
     }
 
-    @ManyToOne
+    @OneToOne
     public InstallmentPayment getInstallmentPayment() {
         return installmentPayment;
     }
