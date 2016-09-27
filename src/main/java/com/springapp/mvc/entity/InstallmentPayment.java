@@ -2,12 +2,23 @@ package com.springapp.mvc.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ssvh on 4/20/16.
  */
 @Entity
 public class InstallmentPayment {
+
+    private List<Credit> credit;
+    private List<Cheque> cheque;
+
+    public InstallmentPayment() {
+        credit = new ArrayList<Credit>();
+        cheque = new ArrayList<Cheque>();
+    }
+
     private int id;
     private Loan loan;
     private BigDecimal interest;
@@ -17,6 +28,7 @@ public class InstallmentPayment {
     private Byte status;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -102,5 +114,23 @@ public class InstallmentPayment {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @OneToMany(cascade=CascadeType.PERSIST)
+    public List<Credit> getCredit() {
+        return credit;
+    }
+
+    public void setCredit(List<Credit> credit) {
+        this.credit = credit;
+    }
+
+    @OneToMany(cascade=CascadeType.PERSIST)
+    public List<Cheque> getCheque() {
+        return cheque;
+    }
+
+    public void setCheque(List<Cheque> cheque) {
+        this.cheque = cheque;
     }
 }

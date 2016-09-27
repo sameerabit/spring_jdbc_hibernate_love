@@ -28,33 +28,54 @@
                 $(function() {
 
                     // Start indexing at the size of the current list
-                    var index = ${fn:length(employer.employees)};
+                    var index = ${fn:length(credit)};
 
                     // Add a new Employee
                     $("#add").off("click").on("click", function() {
                         $(this).before(function() {
-                            var html = '<div id="employees' + index + '.wrapper" class="hidden">';
-                            html += '<input type="text" id="employees' + index + '.firstname" name="employees[' + index + '].firstname" />';
-                            html += '<input type="text" id="employees' + index + '.lastname" name="employees[' + index + '].lastname" />';
-                            html += '<input type="hidden" id="employees' + index + '.remove" name="employees[' + index + '].remove" value="0" />';
-                            html += '<a href="#" class="employees.remove" data-index="' + index + '">remove</a>';
+                            var html = '<div id="credit' + index + '.wrapper" class="hidden">';
+                            html += '<input type="text" id="credit' + index + '.number" name="credit[' + index + '].number" />';
+                            html += '<input type="text" id="credit' + index + '.amount" name="credit[' + index + '].amount" />';
+                            html += '<input type="hidden" id="credit' + index + '.remove" name="credit[' + index + '].remove" value="0" />';
+                            html += '<a href="#" onclick="removeRow('+index+')" class="creditremove" data-index="' + index + '">remove</a>';
                             html += "</div>";
                             return html;
                         });
-                        $("#employees" + index + "\\.wrapper").show();
+                        $("#credit" + index + "\\.wrapper").show();
                         index++;
                         return false;
                     });
 
-                    // Remove an Employee
-                    $("a.employees\\.remove").on("click", function() {
-                        var index2remove = $(this).data("index");
-                        $("#employees" + index2remove + "\\.wrapper").hide();
-                        $("#employees" + index2remove + "\\.remove").val("1");
-                        return false;
-                    });
-
                 });
+
+                function removeRow(key){
+                    $("#credit" + key + "\\.wrapper").remove();
+                }
+
+                //cheque
+                // Start indexing at the size of the current list
+                var chIndex = ${fn:length(cheque)};
+
+                // Add a new Employee
+                $("#addCheque").off("click").on("click", function() {
+                    $(this).before(function() {
+                        var html = '<div id="cheque' + chIndex + '.wrapper" class="hidden">';
+                        html += '<input type="text" id="cheque' + chIndex + '.number" name="cheque[' + chIndex + '].number" />';
+                        html += '<input type="text" id="cheque' + chIndex + '.amount" name="cheque[' + chIndex + '].amount" />';
+                        html += '<input type="hidden" id="cheque' + chIndex + '.remove" name="cheque[' + chIndex + '].remove" value="0" />';
+                        html += '<a href="#" onclick="removeChequeRow('+chIndex+')" class="chequeremove" data-chIndex="' + chIndex + '">remove</a>';
+
+                        html += "</div>";
+                        return html;
+                    });
+                    $("#cheque" + chIndex + "\\.wrapper").show();
+                    chIndex++;
+                    return false;
+                });
+                function removeChequeRow(key){
+                    $("#cheque" + key + "\\.wrapper").remove();
+                }
+
             </script>
         </head>
 <body>
@@ -127,35 +148,6 @@
             </td>
         </tr>
         <tr>
-            <td>Employees</td>
-            <td>
-                <c:forEach items="${employer.employees}" varStatus="loop">
-                <!-- Add a wrapping div -->
-                <c:choose>
-                <c:when test="${employer.employees[loop.index].remove eq 1}">
-                <div id="employees${loop.index}.wrapper" class="hidden">
-                    </c:when>
-                    <c:otherwise>
-                    <div id="employees${loop.index}.wrapper">
-                        </c:otherwise>
-                        </c:choose>
-                        <!-- Generate the fields -->
-                        <form:input path="employees[${loop.index}].firstname" />
-                        <form:input path="employees[${loop.index}].lastname" />
-                        <!-- Add the remove flag -->
-                        <c:choose>
-                            <c:when test="${employees[loop.index].remove eq 1}"><c:set var="hiddenValue" value="1" /></c:when>
-                            <c:otherwise><c:set var="hiddenValue" value="0" /></c:otherwise>
-                        </c:choose>
-                        <form:hidden path="employees[${loop.index}].remove" value="${hiddenValue}" />
-                        <!-- Add a link to remove the Employee -->
-                        <a href="#" class="employees.remove" data-index="${loop.index}">remove</a>
-                    </div>
-                    </c:forEach>
-                    <button id="add" type="button">add</button>
-            </td>
-        </tr>
-        <tr>
             <td colspan="2">
                 <c:if test="${id>0}">
                     <input type="submit"
@@ -169,6 +161,77 @@
         </tr>
     </table>
 
+    <table>
+        <tr colspan="2">Credit Card Payments</tr>
+        <tr>
+            <td>Card No</td>
+            <td>Amount</td>
+        </tr>
+        <tr>
+            <td>
+                <c:forEach items="${credit}" var="credit">
+                <!-- Add a wrapping div -->
+                <c:choose>
+                <c:when test="${credit[credit.index].remove eq 1}">
+                <div id="credit${credit.index}.wrapper" class="hidden">
+                    </c:when>
+                    <c:otherwise>
+                    <div id="credit${credit.index}.wrapper">
+                        </c:otherwise>
+                        </c:choose>
+                        <!-- Generate the fields -->
+                        <form:input path="credit[${credit.index}].number" />
+                        <form:input path="credit[${credit.index}].amount" />
+                        <!-- Add the remove flag -->
+                        <c:choose>
+                            <c:when test="${credit[credit.index].remove eq 1}"><c:set var="hiddenValue" value="1" /></c:when>
+                            <c:otherwise><c:set var="hiddenValue" value="0" /></c:otherwise>
+                        </c:choose>
+                        <form:hidden path="credit[${credit.index}].remove" value="${hiddenValue}" />
+                        <!-- Add a link to remove the Employee -->
+                        <a href="#" class="creditremove" data-index="${credit.index}">remove</a>
+                    </div>
+                    </c:forEach>
+                    <button id="add" type="button">add</button>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr colspan="2">Cheque Payments</tr>
+        <tr>
+            <td>Cheque No</td>
+            <td>Amount</td>
+        </tr>
+        <tr>
+            <td>
+                <c:forEach items="${cheque}" var="cheque">
+                <!-- Add a wrapping div -->
+                <c:choose>
+                <c:when test="${cheque[cheque.index].remove eq 1}">
+                <div id="cheque${cheque.index}.wrapper" class="hidden">
+                    </c:when>
+                    <c:otherwise>
+                    <div id="cheque${cheque.index}.wrapper">
+                        </c:otherwise>
+                        </c:choose>
+                        <!-- Generate the fields -->
+                        <form:input path="cheque[${cheque.index}].number" />
+                        <form:input path="cheque[${cheque.index}].amount" />
+                        <!-- Add the remove flag -->
+                        <c:choose>
+                            <c:when test="${cheque[cheque.index].remove eq 1}"><c:set var="hiddenValue" value="1" /></c:when>
+                            <c:otherwise><c:set var="hiddenValue" value="0" /></c:otherwise>
+                        </c:choose>
+                        <form:hidden path="cheque[${cheque.index}].remove" value="${hiddenValue}" />
+                        <!-- Add a link to remove the Employee -->
+                        <a href="#" class="chequeremove" data-index="${cheque.index}">remove</a>
+                    </div>
+                    </c:forEach>
+                    <button id="addCheque" type="button">add</button>
+            </td>
+        </tr>
+    </table>
     
 
 </form:form>

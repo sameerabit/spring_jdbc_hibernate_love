@@ -11,8 +11,10 @@ public class Cheque {
     private int id;
     private InstallmentPayment installmentPayment;
     private BigDecimal amount;
+    private int number;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -60,5 +62,14 @@ public class Cheque {
 
     public void setInstallmentPayment(InstallmentPayment installmentPayment) {
         this.installmentPayment = installmentPayment;
+    }
+
+    @Basic
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }

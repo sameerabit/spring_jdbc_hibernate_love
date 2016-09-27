@@ -8,11 +8,14 @@ import java.math.BigDecimal;
  */
 @Entity
 public class Credit {
+
     private int id;
     private InstallmentPayment installmentPayment;
     private BigDecimal amount;
+    private int number;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -59,5 +62,14 @@ public class Credit {
 
     public void setInstallmentPayment(InstallmentPayment installmentPayment) {
         this.installmentPayment = installmentPayment;
+    }
+
+    @Basic
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }
