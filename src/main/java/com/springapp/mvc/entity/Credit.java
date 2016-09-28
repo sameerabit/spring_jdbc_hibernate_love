@@ -1,5 +1,7 @@
 package com.springapp.mvc.entity;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -7,6 +9,7 @@ import java.math.BigDecimal;
  * Created by ssvh on 4/20/16.
  */
 @Entity
+@Proxy(lazy = false)
 public class Credit {
 
     private int id;

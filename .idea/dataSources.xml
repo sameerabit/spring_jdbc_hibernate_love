@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="4288284947">
+  <component name="DataSourceManagerImpl" format="xml" hash="3784473162">
     <data-source source="LOCAL" name="defaultPersistenceUnit" uuid="d1f6f9bc-fc43-4422-89d3-0dceee652f83">
       <driver-ref>hsqldb.remote</driver-ref>
       <jdbc-driver>org.hsqldb.jdbcDriver</jdbc-driver>
@@ -23,6 +23,19 @@
           <url>file://$MAVEN_REPOSITORY$/org/hsqldb/hsqldb/2.2.9/hsqldb-2.2.9.jar</url>
         </library>
       </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="MySQL - abc@localhost" uuid="d2fa8c08-2e3d-4754-9499-58c1dac28d58">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/abc</jdbc-url>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+        <property name="characterEncoding" value="utf8" />
+        <property name="characterSetResults" value="utf8" />
+        <property name="yearIsDateType" value="false" />
+      </driver-properties>
     </data-source>
   </component>
 </project>

@@ -10,5 +10,11 @@
       <schema-pattern>PUBLIC.PUBLIC</schema-pattern>
       <default-schemas>PUBLIC.PUBLIC</default-schemas>
     </data-source>
+    <data-source name="MySQL - abc@localhost" uuid="d2fa8c08-2e3d-4754-9499-58c1dac28d58">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>abc.*</schema-pattern>
+      <default-schemas>abc.*</default-schemas>
+    </data-source>
   </component>
 </project>

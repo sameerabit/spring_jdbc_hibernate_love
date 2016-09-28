@@ -16,6 +16,7 @@ public class Cash {
     private BigDecimal amount;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     public int getId() {
         return id;
     }

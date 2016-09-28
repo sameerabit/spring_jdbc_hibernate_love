@@ -1,11 +1,8 @@
 package com.springapp.mvc.controller;
 
-import com.springapp.mvc.entity.Cheque;
-import com.springapp.mvc.entity.Credit;
-import com.springapp.mvc.entity.InstallmentPayment;
-import com.springapp.mvc.entity.Loan;
-import com.springapp.mvc.repository.InstallPaymentRepository;
-import com.springapp.mvc.repository.LoanRepository;
+import com.springapp.mvc.entity.*;
+import com.springapp.mvc.repository.*;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,11 +28,19 @@ public class InstallPaymentController {
     @Autowired
     InstallPaymentRepository installPaymentRepository;
 
-    @RequestMapping("/listPayments")
+    @Autowired
+    CashRepository cashRepository;
+
+    @Autowired
+    CreditRepository creditRepository;
+
+    @Autowired
+    ChequeRepository chequeRepository;
+
+    @RequestMapping("/payment/listPayments")
     public String listPayments(ModelMap modelMap){
-        modelMap.addAttribute("payment",new InstallmentPayment());
-        modelMap.addAttribute("loan",loanRepository.findAll());
-        return "installPayment";
+        modelMap.addAttribute("listInstallPayments",installPaymentRepository.findAll());
+        return "paymentList";
     }
 
     @RequestMapping("/payment/{id}")
@@ -76,7 +81,22 @@ public class InstallPaymentController {
             installmentPayment.setCheque(chequeData);
         }
 
+        if(installmentPayment.getCash()!=null){
+            Cash cash=installmentPayment.getCash();
+            cash.setInstallmentPayment(installmentPayment);
+        }
+
         installPaymentRepository.save(installmentPayment);
+        return "installPayment";
+    }
+
+    @RequestMapping("/payment/edit/{id}")
+    public String editPayment(@PathVariable("id") int id,ModelMap modelMap){
+        InstallmentPayment installmentPayment = installPaymentRepository.findOne(id);
+      //  (installmentPayment.getCash().getId())
+        modelMap.addAttribute("payment",installmentPayment);
+        modelMap.addAttribute("credit",installmentPayment.getCredit());
+        modelMap.addAttribute("cheque",installmentPayment.getCheque());
         return "installPayment";
     }
 

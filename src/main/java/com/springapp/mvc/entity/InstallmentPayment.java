@@ -1,5 +1,9 @@
 package com.springapp.mvc.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -118,7 +122,8 @@ public class InstallmentPayment {
         this.date = date;
     }
 
-    @OneToMany(cascade=CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     public List<Credit> getCredit() {
         return credit;
     }
@@ -127,7 +132,8 @@ public class InstallmentPayment {
         this.credit = credit;
     }
 
-    @OneToMany(cascade=CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     public List<Cheque> getCheque() {
         return cheque;
     }

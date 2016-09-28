@@ -82,7 +82,7 @@
         </head>
 <body>
 <h1>
-    Add  Loan
+    Add  Payment
 </h1>
 <c:url var="addAction" value="/payment/add" ></c:url>
 
@@ -161,7 +161,7 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="cash" />
+                <form:input path="cash.amount" />
             </td>
         </tr>
     </table>
@@ -174,27 +174,13 @@
         </tr>
         <tr>
             <td>
-                <c:forEach items="${credit}" var="credit">
-                <!-- Add a wrapping div -->
-                <c:choose>
-                <c:when test="${credit[credit.index].remove eq 1}">
-                <div id="credit${credit.index}.wrapper" class="hidden">
-                    </c:when>
-                    <c:otherwise>
-                    <div id="credit${credit.index}.wrapper">
-                        </c:otherwise>
-                        </c:choose>
+                <c:forEach items="${credit}" var="credit" varStatus="loop">
+               <div id="credit${loop.index}.wrapper">
                         <!-- Generate the fields -->
-                        <form:input path="credit[${credit.index}].number" />
-                        <form:input path="credit[${credit.index}].amount" />
-                        <!-- Add the remove flag -->
-                        <c:choose>
-                            <c:when test="${credit[credit.index].remove eq 1}"><c:set var="hiddenValue" value="1" /></c:when>
-                            <c:otherwise><c:set var="hiddenValue" value="0" /></c:otherwise>
-                        </c:choose>
-                        <form:hidden path="credit[${credit.index}].remove" value="${hiddenValue}" />
-                        <!-- Add a link to remove the Employee -->
-                        <a href="#" class="creditremove" data-index="${credit.index}">remove</a>
+                        <form:input path="credit[${loop.index}].number" />
+                        <form:input path="credit[${loop.index}].amount" />
+                        <!-- Add the remove flag --><!-- Add a link to remove the Employee -->
+                        <a href="#" class="creditremove" data-index="${loop.index}">remove</a>
                     </div>
                     </c:forEach>
                     <button id="add" type="button">add</button>
@@ -210,27 +196,15 @@
         </tr>
         <tr>
             <td>
-                <c:forEach items="${cheque}" var="cheque">
+                <c:forEach items="${cheque}" var="cheque"  varStatus="loop">
                 <!-- Add a wrapping div -->
-                <c:choose>
-                <c:when test="${cheque[cheque.index].remove eq 1}">
-                <div id="cheque${cheque.index}.wrapper" class="hidden">
-                    </c:when>
-                    <c:otherwise>
-                    <div id="cheque${cheque.index}.wrapper">
-                        </c:otherwise>
-                        </c:choose>
+                    <div id="cheque${loop.index}.wrapper">
                         <!-- Generate the fields -->
-                        <form:input path="cheque[${cheque.index}].number" />
-                        <form:input path="cheque[${cheque.index}].amount" />
+                        <form:input path="cheque[${loop.index}].number" />
+                        <form:input path="cheque[${loop.index}].amount" />
                         <!-- Add the remove flag -->
-                        <c:choose>
-                            <c:when test="${cheque[cheque.index].remove eq 1}"><c:set var="hiddenValue" value="1" /></c:when>
-                            <c:otherwise><c:set var="hiddenValue" value="0" /></c:otherwise>
-                        </c:choose>
-                        <form:hidden path="cheque[${cheque.index}].remove" value="${hiddenValue}" />
                         <!-- Add a link to remove the Employee -->
-                        <a href="#" class="chequeremove" data-index="${cheque.index}">remove</a>
+                        <a href="#" class="chequeremove" data-index="${loop.index}">remove</a>
                     </div>
                     </c:forEach>
                     <button id="addCheque" type="button">add</button>
@@ -255,7 +229,7 @@
 </form:form>
 <br>
 <h3>Loan List</h3>
-<c:if test="${!empty listTransferDetail}">
+<c:if test="${!empty listInstallPayments}">
     <table class="tg">
         <tr>
             <th width="80">ID</th>
