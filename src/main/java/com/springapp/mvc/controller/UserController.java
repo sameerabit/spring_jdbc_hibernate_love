@@ -7,14 +7,33 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+
+
+    @RequestMapping(value= "/login", method = RequestMethod.GET)
+    public String login(ModelMap modelMap){
+        modelMap.addAttribute("user",new User());
+        return "loginPage";
+    }
+
+    @RequestMapping(value= "/user/login", method = RequestMethod.POST)
+    public String findByUserName(@ModelAttribute("user") User user, BindingResult result){
+         User userDB = userRepository.findByUserName(user.getUsername());
+         if(user.getPassword().equals(userDB.getPassword())){
+             return "homePage";
+         }else{
+             return "loginPage";
+         }
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
@@ -31,9 +50,8 @@ public class UserController {
         for (User user : userRepository.findAll()) {
             JSONObject userJSON = new JSONObject();
             userJSON.put("id", user.getId());
-            userJSON.put("firstName", user.getFirstName());
-            userJSON.put("lastName", user.getLastName());
-            userJSON.put("email", user.getEmail());
+            userJSON.put("username", user.getUsername());
+            userJSON.put("password", user.getPassword());
             userArray.put(userJSON);
         }
         return userArray.toString();

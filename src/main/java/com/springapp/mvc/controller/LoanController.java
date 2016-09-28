@@ -1,7 +1,5 @@
 package com.springapp.mvc.controller;
 
-import com.springapp.mvc.entity.FieldOfficer;
-import com.springapp.mvc.entity.Loan;
 import com.springapp.mvc.entity.TransferDetail;
 import com.springapp.mvc.repository.CustomerRepository;
 import com.springapp.mvc.repository.FieldOfficerRepository;
@@ -13,9 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ssvh on 7/24/16.

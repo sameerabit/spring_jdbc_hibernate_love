@@ -20,46 +20,17 @@
             <h1>Users</h1>
             <form:form method="post" action="add" commandName="user" role="form">
                 <div class="form-group">
-                    <form:label path="firstName">First Name:</form:label>
-                    <form:input path="firstName" class="form-control" placeholder="First Name"/>
+                    <form:label path="username">First Name:</form:label>
+                    <form:input path="username" class="form-control" placeholder="User Name"/>
                 </div>
                 <div class="form-group">
-                    <form:label path="lastName">Last Name:</form:label>
-                    <form:input path="lastName" class="form-control" placeholder="Last Name"/>
+                    <form:label path="password">Last Name:</form:label>
+                    <form:input path="password" class="form-control" placeholder="Password Name"/>
                 </div>
-                <div class="form-group">
-                    <form:label path="email">Email:</form:label>
-                    <form:input path="email" class="form-control" placeholder="Email"/>
-                </div>
+
                 <button type="submit" class="btn btn-default">Add User</button>
             </form:form>
 
-            <c:if test="${!empty users}">
-                <h3>Users</h3>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${users}" var="user">
-                            <tr>
-                                <td>${user.lastName}, ${user.firstName}</td>
-                                <td>${user.email}</td>
-                                <td>
-                                    <form:form action="delete/${user.id}" method="post"><input type="submit"
-                                                                                               class="btn btn-danger btn-mini"
-                                                                                               value="Delete"/>
-                                    </form:form>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </c:if>
         </div>
     </body>
 </html>

@@ -2,20 +2,20 @@ package com.springapp.mvc.entity;
 
 import javax.persistence.*;
 
-@Entity(name = "account")
+@Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Basic
-    private String firstName;
+    private String username;
 
     @Basic
-    private String lastName;
+    private String password;
 
     @Basic
-    private String email;
+    private Boolean status;
 
     public Long getId() {
         return id;
@@ -25,27 +25,27 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFirstName(String name) {
-        this.firstName = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }

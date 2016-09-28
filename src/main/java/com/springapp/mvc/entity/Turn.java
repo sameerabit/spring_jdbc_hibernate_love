@@ -1,9 +1,7 @@
 package com.springapp.mvc.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by ssvh on 4/20/16.
@@ -11,9 +9,12 @@ import javax.persistence.Id;
 @Entity
 public class Turn {
     private int id;
-    private int fieldOfficerId;
+    private FieldOfficer fieldOfficer;
+    private String startTime;
+    private String offTime;
 
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -22,32 +23,31 @@ public class Turn {
         this.id = id;
     }
 
+
+    @ManyToOne
+    public FieldOfficer getFieldOfficer() {
+        return fieldOfficer;
+    }
+
+    public void setFieldOfficer(FieldOfficer fieldOfficer) {
+        this.fieldOfficer = fieldOfficer;
+    }
+
     @Basic
-    public int getFieldOfficerId() {
-        return fieldOfficerId;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setFieldOfficerId(int fieldOfficerId) {
-        this.fieldOfficerId = fieldOfficerId;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Turn turn = (Turn) o;
-
-        if (id != turn.id) return false;
-        if (fieldOfficerId != turn.fieldOfficerId) return false;
-
-        return true;
+    @Basic
+    public String getOffTime() {
+        return offTime;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + fieldOfficerId;
-        return result;
+    public void setOffTime(String offTime) {
+        this.offTime = offTime;
     }
 }

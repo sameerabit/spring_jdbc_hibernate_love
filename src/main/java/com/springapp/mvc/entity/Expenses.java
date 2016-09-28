@@ -1,9 +1,6 @@
 package com.springapp.mvc.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
@@ -12,7 +9,7 @@ import java.math.BigDecimal;
 @Entity
 public class Expenses {
     private int id;
-    private int branchId;
+    private Branch branch;
     private String reason;
     private BigDecimal amount;
 
@@ -25,13 +22,13 @@ public class Expenses {
         this.id = id;
     }
 
-    @Basic
-    public int getBranchId() {
-        return branchId;
+    @ManyToOne
+    public Branch getBranch() {
+        return branch;
     }
 
-    public void setBranchId(int branchId) {
-        this.branchId = branchId;
+    public void setBranch(Branch branch) {
+        this.branch= branch;
     }
 
     @Basic
@@ -60,7 +57,6 @@ public class Expenses {
         Expenses expenses = (Expenses) o;
 
         if (id != expenses.id) return false;
-        if (branchId != expenses.branchId) return false;
         if (reason != null ? !reason.equals(expenses.reason) : expenses.reason != null) return false;
         if (amount != null ? !amount.equals(expenses.amount) : expenses.amount != null) return false;
 
@@ -70,7 +66,6 @@ public class Expenses {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + branchId;
         result = 31 * result + (reason != null ? reason.hashCode() : 0);
         result = 31 * result + (amount != null ? amount.hashCode() : 0);
         return result;
