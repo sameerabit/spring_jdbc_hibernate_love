@@ -55,6 +55,10 @@ public class InstallPaymentController {
 
     @RequestMapping("/payment/add")
     public String addPayments(@ModelAttribute("payment")InstallmentPayment installmentPayment){
+        if(installmentPayment.getId()!=0){
+            installPaymentRepository.save(installmentPayment);
+            return "installPayment";
+        }
         List<Credit> creditData = installmentPayment.getCredit();
         int size =creditData.size();
         if(size>0){
